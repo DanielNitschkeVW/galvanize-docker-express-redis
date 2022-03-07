@@ -24,16 +24,30 @@ app.get('/keys', async (req, res) => {
 app.get('/', async (req, res) => {
   const lastUse = await redisClient.getAsync("lastUse");
   await redisClient.setAsync("lastUse", new Date().toISOString());
-  return res.body(
-    `Hello and welcome to this tiny express-redis docker example\n
-    \n
-    Please use the following HTML GET commands\n
-    \n
-    /                   > this page\n
-    /keys               > lists all keys\n
-    /read/:key          > gets the stored value for a key\n
-    /store/:key/:value  > stores a value for a key\n
-    \n
+  return res.send(
+    `Hello and welcome to this tiny express-redis docker example<br>
+    <br>
+    Please use the following HTML GET commands<br>
+    <br>
+    <table>
+      <tr>
+        <td>/</td>
+        <td>this page</td>
+      </tr>
+      <tr>
+        <td>/keys </td>
+        <td>lists all keys</td>
+      </tr>
+      <tr>
+        <td>/read/:key</td>
+        <td>gets the stored value for a key</td>
+      </tr>
+      <tr>
+        <td>/store/:key/:value</td>
+        <td>stores a value for a key</td>
+      </tr>
+    </table>
+    <br>
     Last access: ${lastUse}`);
 });
 
